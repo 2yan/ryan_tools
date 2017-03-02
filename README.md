@@ -5,7 +5,7 @@ Is pretty much a convenience package.
 
 ## Functions Available:
 
-*mround()*<br />
+*mround(nnumber)*<br />
 Helper function for the round function. The only thing different it does is that it defaults to rounding by 2 if no value is provided
 
 *find_column_id( findme, row )*<br />
