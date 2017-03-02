@@ -28,11 +28,7 @@ def read_date(text):
         try:
             return datetime.datetime.strptime(text, fmt)
         except ValueError:
-            return date_parse(text)
-
-
-
-            
+            return date_parse(text)            
             pass
     raise ValueError('No Valid Date found in :' + str(text))
 
