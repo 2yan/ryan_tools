@@ -84,3 +84,12 @@ def last_date_of_month(date_time):
     last = calendar.monthrange( date_time.year, date_time.month)[1]
     return datetime.datetime(date_time.year, date_time.month, last, 23, 59, 59, 999999 )
 
+def make_a_wordcloud( string = None, frequencies = None):
+    from wordcloud import WordCloud
+    if type(frequencies) != type(None):
+        x = WordCloud(width=1920, height=1080).generate_from_frequencies(frequencies)
+    if (string != None) and type(frequencies) == type(None):
+        x = WordCloud(width=1920, height=1080).generate_from_text(string)
+    result = sea.plt.imshow(x, interpolation='bilinear')
+    sea.plt.axis("off")
+    return result
