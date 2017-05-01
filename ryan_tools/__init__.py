@@ -78,7 +78,9 @@ def print_list(list_of_things):
     except AttributeError:
         for items in list_of_things:
             print(items)
-  
+            
+def sql_date( date_time ):
+    return date_time.strftime('%Y-%m-%d %H:%M:%S')
 
 def last_date_of_month(date_time):
     last = calendar.monthrange( date_time.year, date_time.month)[1]
