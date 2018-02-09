@@ -126,7 +126,7 @@ class progress_bar():
     stepsize = None
     
     def __init__(self, to_do, stepsize = 1):
-        self.left = left
+        self.left = to_do
         self.stepsize = stepsize
         
     def progress(self):
