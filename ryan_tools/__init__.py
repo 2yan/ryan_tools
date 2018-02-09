@@ -7,6 +7,8 @@ from dateutil.parser import parse as date_parse
 import csv
 import calendar
 from .encoder import encode, decode
+from IPython.display import clear_output
+
 
 def mround( number, by = 2 ):
     return round( number, by )
@@ -128,6 +130,7 @@ class progress_bar():
     def __init__(self, to_do, stepsize = 1):
         self.left = to_do
         self.stepsize = stepsize
+        
         
     def progress(self):
         i = self.i
