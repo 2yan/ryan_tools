@@ -118,14 +118,37 @@ def last_date_of_month(date_time):
     last = calendar.monthrange( date_time.year, date_time.month)[1]
     return datetime.datetime(date_time.year, date_time.month, last, 23, 59, 59, 999999 )
 
-def make_a_wordcloud( string = None, frequencies = None):
-    '''You need wordcloud installed (pip install wordcloud)
-    You can either give it a string (First argument)  or a dataframe.value_counts() object (Second Argument) '''
-    from wordcloud import WordCloud
-    if type(frequencies) != type(None):
-        x = WordCloud(width=1920, height=1080).generate_from_frequencies(frequencies)
-    if (string != None) and type(frequencies) == type(None):
-        x = WordCloud(width=1920, height=1080).generate_from_text(string)
-    result = sea.plt.imshow(x, interpolation='bilinear')
-    sea.plt.axis("off")
-    return result
+class progress_bar():
+    bar_pos = 0
+    left = None
+    i = 0
+    stepsize = None
+    
+    def __init__(self, to_do, stepsize = 1):
+        self.left = left
+        self.stepsize = stepsize
+        
+    def progress(self):
+        i = self.i
+        bar_pos = self.bar_pos
+        left = self.left
+        
+        if not i%self.stepsize:
+            bar_pos = bar_pos + 1
+            power_of_one_dot = 100/left
+            pos = int(power_of_one_dot * i)
+            bar = ''
+
+            for num in range(0, pos -1 ):
+                if (num + bar_pos) %2 == 0:
+                    bar = bar + 'o'
+                if (num + bar_pos) %2 != 0:
+                    bar = bar + '0'             
+            bar = bar + '>'
+            for num in range(0, 100 - pos):
+                bar = bar + ' '
+            bar = bar + '| {:.2f} % \nDone: {} Remaining: {}'.format(100 * i/(left -1), i, left - i )
+
+            print(bar)
+            clear_output(True)
+        self.i = i + 1
