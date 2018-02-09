@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 from dateutil.parser import parse as date_parse
 import csv
 import calendar
+import encoder
 
 def mround( number, by = 2 ):
     return round( number, by )
