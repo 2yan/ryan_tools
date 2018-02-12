@@ -8,7 +8,7 @@ import csv
 import calendar
 from .encoder import encode, decode
 from IPython.display import clear_output
-
+from .name_fixer import fix_human_name
 
 def mround( number, by = 2 ):
     return round( number, by )

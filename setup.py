@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='ryan_tools',
-      version='0.26',
+      version='0.27',
       description='ryan_tools for easy setup',
       url='https://github.com/2yan/ryan_tools',
       author='Ryan Francis',
