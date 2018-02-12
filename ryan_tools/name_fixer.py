@@ -24,7 +24,7 @@ def vowel(letter):
         return True
     return False
 
-def fix_name(text):
+def fix_human_name(text):
     if text.upper() != text and text.lower() != text:
         return text
 
@@ -49,5 +49,5 @@ def fix_name(text):
         #    letter = letter.upper()        
         
         done_text = done_text + letter
-    done_text =  done_text[1: len(done_text)]
+    done_text =  done_text[1: len(done_text) -1 ]
     return done_text
