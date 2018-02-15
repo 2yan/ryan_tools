@@ -25,7 +25,7 @@ def encode(text, password):
 
 def decode(text, password):
     
-    text = eval(str(x))
+    text = eval(str(text))
     encoded_array = bytearray(text)
     pointer = get_start_position(password)
     
