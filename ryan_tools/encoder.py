@@ -20,11 +20,12 @@ def encode(text, password):
         letter = go_round(letter + value, 256)
         pointer = pointer + value
         done.append(letter)
-    return list_to_bytes(done).decode()
+
+    return str(list_to_bytes(done))
 
 def decode(text, password):
     
-    text = text.encode()
+    text = eval(str(x))
     encoded_array = bytearray(text)
     pointer = get_start_position(password)
     
@@ -75,6 +76,3 @@ def go_round(number, maximum):
         
 def list_to_bytes(list_o):
     return array.array('B', list_o).tobytes()
-
-
-
