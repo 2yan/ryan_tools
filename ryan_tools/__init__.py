@@ -162,7 +162,7 @@ class progress_bar():
                 bar = bar + ' '
             bar = bar + '| {:.2f} % \nDone: {} Remaining: {}, Remaining Time: {:.0f}s'.format(
                     100 * i/(left -1),
-                    i, left - i, np.mean(self.estimates) * self.left )
+                    i, left - i, np.mean(self.estimates) * (self.left - i) )
 
             print(bar)
             clear_output(True)
