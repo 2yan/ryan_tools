@@ -9,6 +9,7 @@ import calendar
 from .encoder import encode, decode
 from IPython.display import clear_output
 from .name_fixer import fix_human_name
+import time
 
 def mround( number, by = 2 ):
     return round( number, by )
@@ -126,11 +127,13 @@ class progress_bar():
     left = None
     i = 0
     stepsize = None
+    estimates = []
+    last_time = None
     
     def __init__(self, to_do, stepsize = 1):
         self.left = to_do
         self.stepsize = stepsize
-        
+        self.last_time = time.time()
         
     def progress(self):
         i = self.i
@@ -138,6 +141,12 @@ class progress_bar():
         left = self.left
         
         if not i%self.stepsize:
+            now = time.time()
+            difference = now - self.last_time
+            self.last_time = now
+            difference = difference/self.stepsize
+            self.estimates.append(difference)
+            
             bar_pos = bar_pos + 1
             power_of_one_dot = 100/left
             pos = int(power_of_one_dot * i)
@@ -151,7 +160,9 @@ class progress_bar():
             bar = bar + '>'
             for num in range(0, 100 - pos):
                 bar = bar + ' '
-            bar = bar + '| {:.2f} % \nDone: {} Remaining: {}'.format(100 * i/(left -1), i, left - i )
+            bar = bar + '| {:.2f} % \nDone: {} Remaining: {}, Remaining Time: {:.0f}s'.format(
+                    100 * i/(left -1),
+                    i, left - i, np.mean(self.estimates) * self.left )
 
             print(bar)
             clear_output(True)
