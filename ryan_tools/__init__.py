@@ -7,6 +7,7 @@ from dateutil.parser import parse as date_parse
 import csv
 import calendar
 from .encoder import encode, decode
+from .stop_sleep import stop_sleep, allow_sleep
 from IPython.display import clear_output
 from .name_fixer import fix_human_name
 import time
