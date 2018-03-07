@@ -6,10 +6,10 @@ from dateutil.relativedelta import relativedelta
 from dateutil.parser import parse as date_parse
 import csv
 import calendar
-from .encoder import encode, decode
 from .stop_sleep import stop_sleep, allow_sleep
 from IPython.display import clear_output
 from .name_fixer import fix_human_name
+import ryan_tools.wrangler as wrangler
 import time
 
 def mround( number, by = 2 ):
@@ -33,18 +33,6 @@ def get_index(findme, whatever_list ):
         iterator = iterator + 1
     return False
 
-def diff_month(d1, d2):
-    return (d1.year - d2.year) * 12 + d1.month - d2.month
-
-def rearrange_dataframe_columns(dataframe, order):
-    '''Takes a dataframe and a column order, the column order is litteraly the column names ordered correctly
-    IF you want to have it reversed, used python's built in reversed() function on <order>'''
-    result = dataframe.copy()
-    for column in result.columns:
-        del result[column]
-    for column in order:
-        result[column] = dataframe[column]
-    return result
     
 def get_month( datetime):
     'Returns Month name'
