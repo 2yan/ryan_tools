@@ -7,7 +7,6 @@ from dateutil.parser import parse as date_parse
 import csv
 import calendar
 from .stop_sleep import stop_sleep, allow_sleep
-from IPython.display import clear_output
 from .name_fixer import fix_human_name
 import ryan_tools.wrangler as wrangler
 import time
@@ -110,7 +109,6 @@ def last_date_of_month(date_time):
     'Give it a datetime, and it will shove out the last second of the month  )'
     last = calendar.monthrange( date_time.year, date_time.month)[1]
     return datetime.datetime(date_time.year, date_time.month, last, 23, 59, 59, 999999 )
-
 class progress_bar():
     bar_pos = 0
     left = None
@@ -118,7 +116,7 @@ class progress_bar():
     stepsize = None
     estimates = []
     last_time = None
-    
+    last_bar = ''
     def __init__(self, to_do, stepsize = 1):
         self.left = to_do
         self.stepsize = stepsize
@@ -152,7 +150,9 @@ class progress_bar():
             bar = bar + '| {:.2f} % \nDone: {} Remaining: {}, Remaining Time: {:.0f}s'.format(
                     100 * i/(left -1),
                     i, left - i, np.mean(self.estimates) * (self.left - i) )
-
-            print(bar)
-            clear_output(True)
+            self.i = i + 1
+            self.last_bar = bar
+            return bar
+  
         self.i = i + 1
+        return self.last_bar
