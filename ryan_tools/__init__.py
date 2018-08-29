@@ -1,12 +1,9 @@
 import pandas as pd
 import numpy as np
-import seaborn as sea
 import datetime
-from dateutil.relativedelta import relativedelta
+
 from dateutil.parser import parse as date_parse
-import csv
 import calendar
-from .stop_sleep import stop_sleep, allow_sleep
 from .name_fixer import fix_human_name
 import ryan_tools.wrangler as wrangler
 import time
@@ -109,6 +106,39 @@ def last_date_of_month(date_time):
     'Give it a datetime, and it will shove out the last second of the month  )'
     last = calendar.monthrange( date_time.year, date_time.month)[1]
     return datetime.datetime(date_time.year, date_time.month, last, 23, 59, 59, 999999 )
+
+def load_quickbooks(filename):       
+    data = pd.read_csv(filename)
+    for column in data.columns:
+        if 'Unnamed' in column:
+            data[column] = data[column].ffill()
+        if all(data[column].isnull()):
+            del data[column]
+            
+    data = data[~data['Date'].isnull()]
+    
+    data['Date'] = pd.to_datetime(data["Date"])
+    
+    for thing in ['Debit', 'Credit', 'Balance']:
+        data[thing] = data[thing].apply(read_cash)
+        
+    data['cash'] = data['Debit'] - data['Credit']
+    
+    data.columns = data.columns.map(lambda x: x.replace('Unnamed: ', 'A'))
+
+    
+    
+    for column in data.columns:
+        if all(data[column].isnull()):
+            del data[column]   
+            
+        
+    return data
+
+
+
+
+
 class progress_bar():
     bar_pos = 0
     left = None
